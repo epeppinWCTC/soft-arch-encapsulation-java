@@ -39,24 +39,29 @@ public class Employee {
         this.ssn = ssn;
     }
 
+    public void newEmployeeProcess(String cubeId){
+        orientationDate = LocalDate.now();
+        meetWithHrForBenefitAndSalaryInfo();
+        meetDepartmentStaff();
+        reviewDeptPolicies();
+        moveIntoCubicle(cubeId);
+
+    }
+
     // Assume this must be performed first, and assume that an employee
     // would only do this once, upon being hired.
-    public void meetWithHrForBenefitAndSalaryInfo() {
+    private void meetWithHrForBenefitAndSalaryInfo() {
         metWithHr = true;
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/d/yy");
-        String fmtDate = formatter.format(orientationDate);
         System.out.println(firstName + " " + lastName + " met with HR on "
-                + fmtDate);
+                + dateFormatter(orientationDate));
     }
 
     // Assume this must be performed second, and assume that an employee
     // would only do this once, upon being hired.
-    public void meetDepartmentStaff() {
+    private void meetDepartmentStaff() {
         metDeptStaff = true;
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/d/yy");
-        String fmtDate = formatter.format(orientationDate);
         System.out.println(firstName + " " + lastName + " met with dept staff on "
-                + fmtDate);
+                + dateFormatter(orientationDate));
     }
 
     // Assume this must be performed third. And assume that because department
@@ -64,10 +69,8 @@ public class Employee {
     // independently from other classes.
     public void reviewDeptPolicies() {
         reviewedDeptPolicies = true;
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/d/yy");
-        String fmtDate = formatter.format(orientationDate);
         System.out.println(firstName + " " + lastName + " reviewed dept policies on "
-                + fmtDate);
+                + dateFormatter(orientationDate));
     }
 
     // Assume this must be performed fourth. And assume that because employees
@@ -76,10 +79,14 @@ public class Employee {
     public void moveIntoCubicle(String cubeId) {
         this.cubeId = cubeId;
         this.movedIn = true;
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/d/yy");
-        String fmtDate = formatter.format(orientationDate);
         System.out.println(firstName + " " + lastName + " moved into cubicle "
-                + cubeId + " on " + fmtDate);
+                + cubeId + " on " + dateFormatter(orientationDate));
+    }
+
+    private String dateFormatter(LocalDate date){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/d/yy");
+        String fmtDate = formatter.format(date);
+        return fmtDate;
     }
 
     public String getFirstName() {
